@@ -1,0 +1,55 @@
+{
+  "paired_tasks": 36,
+  "baseline": {
+    "tasks": 36,
+    "success_rate": 1.0,
+    "metric_means": {
+      "agent_contract_pass_rate": 1.0,
+      "evidence_count": 3.0,
+      "label_accuracy": 0.4123677248677249
+    },
+    "latency_ms": {
+      "mean": 93.19245555929632,
+      "p50": 68.283699976746,
+      "p95": 112.59719997178763,
+      "max": 950.0141000025906
+    },
+    "failure_counts": {
+      "review_required": 36
+    }
+  },
+  "candidate": {
+    "tasks": 36,
+    "success_rate": 1.0,
+    "metric_means": {
+      "agent_contract_pass_rate": 1.0,
+      "evidence_count": 0.25,
+      "label_accuracy": 0.4123677248677249
+    },
+    "latency_ms": {
+      "mean": 126.15735555623866,
+      "p50": 99.4205999886617,
+      "p95": 151.951200037729,
+      "max": 979.3113000341691
+    },
+    "failure_counts": {
+      "retrieval_rejected": 29,
+      "review_required": 36
+    }
+  },
+  "deltas": {
+    "success_rate": 0.0,
+    "metrics": {
+      "agent_contract_pass_rate": 0.0,
+      "evidence_count": -2.75,
+      "label_accuracy": 0.0
+    },
+    "p95_latency_ratio": 1.3495113561953753,
+    "trajectory_change_rate": 0.0
+  },
+  "changed_trajectory_tasks": [],
+  "new_failure_tasks": [],
+  "resolved_failure_tasks": [],
+  "gate_passed": true,
+  "violations": []
+}

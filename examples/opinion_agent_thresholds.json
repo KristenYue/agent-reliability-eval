@@ -1,0 +1,9 @@
+{
+  "max_success_rate_drop": 0.0,
+  "max_metric_drop": {
+    "label_accuracy": 0.0,
+    "agent_contract_pass_rate": 0.0
+  },
+  "max_p95_latency_increase_ratio": 1.0,
+  "max_trajectory_change_rate": 0.0
+}
