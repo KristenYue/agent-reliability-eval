@@ -8,6 +8,12 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      run-online-tests:
+        description: "Run tests that call external LLM APIs"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -48,7 +54,7 @@ jobs:
         contains(github.event.pull_request.labels.*.name, 'release') ||
         needs.changed_files.outputs.python_changed == 'true'
       )) ||
-      (github.event_name == 'workflow_dispatch' && github.event.inputs.run-python-tests == 'true')
+      (github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -57,7 +63,7 @@ jobs:
       run:
         working-directory: python
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
@@ -70,21 +76,39 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
-        run: |
-          uv venv
-          source .venv/bin/activate
-          uv sync
-          uv sync --group dev
+        run: uv sync --group dev
         shell: bash
         working-directory: python
           
-      - name: Run integration tests
+      - name: Run offline Python tests
+        env:
+          LANGSMITH_TEST_TRACKING: "false"
+        run: >-
+          uv run pytest tests
+          --ignore=tests/test_trajectory_llm.py
+          --ignore=tests/test_trajectory_llm_async.py
+          --ignore=tests/graph_trajectory/test_graph_trajectory_llm.py
+          --ignore=tests/graph_trajectory/test_graph_trajectory_llm_async.py
+          --ignore=tests/graph_trajectory/test_graph_trajectory_strict.py
+          --ignore=tests/graph_trajectory/test_graph_trajectory_strict_async.py
+        shell: bash
+        working-directory: python
+
+      - name: Run online Python tests
+        if: github.event_name == 'workflow_dispatch' && inputs.run-online-tests
         env:
           LANGSMITH_TRACING: "true"
           LANGSMITH_ENDPOINT: ${{ secrets.LANGSMITH_ENDPOINT }}
           LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: uv run pytest tests
+        run: >-
+          uv run pytest
+          tests/test_trajectory_llm.py
+          tests/test_trajectory_llm_async.py
+          tests/graph_trajectory/test_graph_trajectory_llm.py
+          tests/graph_trajectory/test_graph_trajectory_llm_async.py
+          tests/graph_trajectory/test_graph_trajectory_strict.py
+          tests/graph_trajectory/test_graph_trajectory_strict_async.py
         shell: bash
         working-directory: python
 
@@ -97,28 +121,39 @@ jobs:
         contains(github.event.pull_request.labels.*.name, 'release') ||
         needs.changed_files.outputs.js_changed == 'true'
       )) ||
-      (github.event_name == 'workflow_dispatch' && github.event.inputs.run-js-tests == 'true')
+      (github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: js
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 22.x
-          cache: "yarn"
-          cache-dependency-path: "js/yarn.lock"
+
+      - name: Enable Yarn
+        run: corepack enable && corepack prepare yarn@3.5.1 --activate
 
       - name: Install Yarn dependencies
-        run: yarn install
+        run: yarn install --immutable
         shell: bash
         working-directory: js
 
 
-      - name: Run JS integration tests
+      - name: Run offline JS tests
+        env:
+          LANGSMITH_TEST_TRACKING: "false"
+        run: >-
+          yarn test src/trajectory/tests src/graph_trajectory/tests
+          --exclude "**/*llm*.test.ts"
+        shell: bash
+        working-directory: js
+
+      - name: Run online JS tests
+        if: github.event_name == 'workflow_dispatch' && inputs.run-online-tests
         env:
           LANGSMITH_TRACING: "true"
           LANGSMITH_ENDPOINT: ${{ secrets.LANGSMITH_ENDPOINT }}
