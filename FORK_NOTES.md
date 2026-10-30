@@ -1,4 +1,4 @@
-# Portfolio extension notes
+# Upstream and extension notes
 
 - Upstream: https://github.com/langchain-ai/agentevals
 - Upstream commit: `db42ec14993de1e123d7c527b79944baa3106d14`

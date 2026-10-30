@@ -1,6 +1,6 @@
 # AgentEvals：Agent 可靠性回归评估工具
 
-本项目用于评估大语言模型 Agent 在版本更新、提示词调整、工具变更和工作流重构前后的可靠性变化。仓库在上游 AgentEvals 的轨迹评估能力之上，增加了成对版本回归分析、应用轨迹适配器、命令行报告与可配置质量门禁，适合作为 Agent 工程测试和作品集项目。
+本项目用于评估大语言模型 Agent 在版本更新、提示词调整、工具变更和工作流重构前后的可靠性变化。仓库在上游 AgentEvals 的轨迹评估能力之上，增加了成对版本回归分析、应用轨迹适配器、命令行报告与可配置质量门禁。
 
 ## 主要能力
 
@@ -22,7 +22,7 @@ agent-reliability-eval/
 ├─ scripts/                # 演示和辅助脚本
 ├─ static/                 # 文档静态资源
 ├─ .github/workflows/      # 构建、离线测试和发布流程
-├─ PORTFOLIO_EXTENSION.md  # 本仓库新增功能说明
+├─ EXTENSIONS.md           # 本仓库新增功能说明
 ├─ FORK_NOTES.md           # 上游来源与修改记录
 └─ LICENSE                 # MIT 许可证
 ```
@@ -73,7 +73,7 @@ TypeScript 包的详细接口见 [`js/README.md`](js/README.md)。
 4. 生成 Markdown 或 JSON 报告。
 5. 根据允许退化率等阈值决定质量门禁是否通过。
 
-仓库中的 [`examples`](examples) 提供了可执行样例；新增扩展的设计和范围见 [`PORTFOLIO_EXTENSION.md`](PORTFOLIO_EXTENSION.md)。
+仓库中的 [`examples`](examples) 提供了可执行样例；新增扩展的设计和范围见 [`EXTENSIONS.md`](EXTENSIONS.md)。
 
 ## 自动化测试
 
@@ -95,6 +95,6 @@ GitHub Actions 默认运行不依赖外部服务的 Python 与 JavaScript 测试
 
 ## 上游归属与许可证
 
-本仓库基于 LangChain 团队维护的 AgentEvals 项目进行扩展。上游来源、固定提交和本仓库新增范围记录在 [`FORK_NOTES.md`](FORK_NOTES.md) 与 [`PORTFOLIO_EXTENSION.md`](PORTFOLIO_EXTENSION.md) 中。
+本仓库基于 LangChain 团队维护的 AgentEvals 项目进行扩展。上游来源、固定提交和本仓库新增范围记录在 [`FORK_NOTES.md`](FORK_NOTES.md) 与 [`EXTENSIONS.md`](EXTENSIONS.md) 中。
 
 项目遵循 [MIT License](LICENSE)。保留原作者的版权和许可证声明，不代表本仓库作者独立创作了全部上游代码。

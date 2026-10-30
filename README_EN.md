@@ -1,8 +1,8 @@
 # 🦾⚖️ AgentEvals
 
-> **Portfolio extension:** this repository preserves the upstream MIT-licensed AgentEvals code and
+> **Repository extension:** this repository preserves the upstream MIT-licensed AgentEvals code and
 > adds paired Agent-version regression analysis, application trace adapters and configurable CI
-> quality gates. See [PORTFOLIO_EXTENSION.md](PORTFOLIO_EXTENSION.md) for the added scope and
+> quality gates. See [EXTENSIONS.md](EXTENSIONS.md) for the added scope and
 > [FORK_NOTES.md](FORK_NOTES.md) for attribution and the pinned upstream commit.
 
 [Agentic applications](https://langchain-ai.github.io/langgraph/concepts/agentic_concepts/) give an LLM freedom over control flow in order to solve problems. While this freedom

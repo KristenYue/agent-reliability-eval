@@ -1,6 +1,6 @@
 # Agent regression and trajectory diagnostics extension
 
-This branch extends the upstream MIT-licensed AgentEvals project with paired version regression
+This repository extends the upstream MIT-licensed AgentEvals project with paired version regression
 analysis. The upstream trajectory evaluators remain unchanged.
 
 ## Added capabilities
